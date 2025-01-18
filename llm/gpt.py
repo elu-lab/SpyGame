@@ -1,5 +1,7 @@
 from time import sleep
 import openai
+
+
 class GPT:
     def __init__(self, model):
         self.model = model
@@ -7,11 +9,11 @@ class GPT:
     def generate_message(self, prompt):
         messages = [
             {"role": "system", "content": ""},
-            {"role": "user", "content": prompt}
+            {"role": "user", "content": prompt},
         ]
         return messages
-    
-    def generate(self, prompt:str) -> str:
+
+    def generate(self, prompt: str) -> str:
         """
         Description
         func generates response
@@ -29,8 +31,7 @@ class GPT:
         while True:
             try:
                 response = openai.ChatCompletion.create(
-                    model = self.model,
-                    messages = messages
+                    model=self.model, messages=messages
                 )
                 break
             except Exception as e:
@@ -39,5 +40,5 @@ class GPT:
                     print(f"Error:{e}")
                     raise RuntimeError("GPT server response not working. err_count>2")
                 err_count += 1
-        
-        return response['choices'][0]['message']['content']
+
+        return response["choices"][0]["message"]["content"]
